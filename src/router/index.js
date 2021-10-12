@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import SignUpPage from '../views/SignUpPage.vue'
+import AlbumsDetailPage from '../views/AlbumsDetailPage.vue'
+import AlbumsPage from '../views/AlbumsPage.vue'
+
 
 Vue.use(VueRouter)
 
@@ -9,6 +13,23 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/signup',
+    name: 'SignUpPage',
+    component: SignUpPage
+  },
+  {
+    path: '/album/:id',
+    name: 'AlbumsDetailPage',
+    component: AlbumsDetailPage,
+    meta: {requiresAuth: true}
+  },
+  {
+    path: '/albums',
+    name: 'AlbumsPage',
+    component: AlbumsPage,
+    meta: {requiresAuth: true}
   },
   {
     path: '/about',
