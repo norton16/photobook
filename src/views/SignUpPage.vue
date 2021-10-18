@@ -54,7 +54,7 @@ export default {
         password: "",
         email: "",
         error: "",
-        confirmPassword: "",
+        confirmPassword: false,
         code: "",
     }),
     methods: {
@@ -63,11 +63,12 @@ export default {
                 return;
             }
             try {
-                await this.$store.dispatch('auth/signup', {
+                await this.$store.dispatch('auth/signUp', {
                     username: this.username,
                     password: this.password,
                     email: this.email
                 });
+                this.confirmPassword = true;
             } catch (error) {
                 this.error = error;
             }
@@ -77,11 +78,11 @@ export default {
                 return;
             }
             try {
-                await this.$store.dispatch('auth/confirmSignup', {
+                await this.$store.dispatch('auth/confirmSignUp', {
                     username: this.username,
                     code: this.code
                 });
-                await this.$store.dispatch('authlogin', {
+                await this.$store.dispatch('auth/login', {
                     username: this.username,
                     password: this.password
                 });

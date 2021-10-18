@@ -11,10 +11,18 @@
 
 <script>
 import Nav from '@/components/Nav.vue'
+import { mapActions } from 'vuex'
 
 export default {
+  mounted() {
+    this.authAction();
+  },
   components: {
     Nav
+  },
+  // Set values in vuex store when App loads
+  methods: {
+    ...mapActions("auth", ["authAction"])
   }
 }
 </script>

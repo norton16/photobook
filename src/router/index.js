@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import SignUpPage from '../views/SignUpPage.vue'
 import AlbumsDetailPage from '../views/AlbumsDetailPage.vue'
 import AlbumsPage from '../views/AlbumsPage.vue'
+import Auth from '@aws-amplify/auth'
 
 
 Vue.use(VueRouter)
@@ -45,6 +46,18 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+// Route guards - prevent users from accessing pages without logging in
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const isAuthenticated = await Auth.currentUserInfo();
+
+  if(requiresAuth && !isAuthenticated) {
+    next("/");
+  } else {
+    next();
+  }
 })
 
 export default router
